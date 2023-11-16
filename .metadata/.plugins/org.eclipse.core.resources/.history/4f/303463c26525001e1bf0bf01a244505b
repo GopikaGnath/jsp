@@ -1,0 +1,21 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+String category=request.getParameter("category");
+String available=request.getParameter("available");
+String number=request.getParameter("number");
+try{
+	Connection con=ConnectionProvider.getCon();
+	PreparedStatement ps=con.prepareStatement("insert into avaliability values(?,?,?)");
+
+	ps.setString(1, category);
+	ps.setString(2, available);
+	ps.setString(3, number);
+	ps.executeUpdate();
+	response.sendRedirect("manage.jsp?msg=valid");
+}
+catch(Exception e)
+{
+	response.sendRedirect("manage.jsp?msg=invalid");
+}
+%>

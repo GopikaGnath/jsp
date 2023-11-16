@@ -1,0 +1,27 @@
+<%@page import="project.ConnectionProvider" %>
+<%@page import="java.sql.*" %>
+<%
+String id=request.getParameter("id");
+String name=request.getParameter("name");
+String city=request.getParameter("city");
+String category=request.getParameter("category");
+String mobilenumber=request.getParameter("mobilenumber");
+String email=request.getParameter("email");
+String address=request.getParameter("address");
+try{
+	Connection con=ConnectionProvider.getCon();
+	PreparedStatement ps=con.prepareStatement("update workers set name=?,city=?,category=?,mobilenumber=?,email=?,address=? where id=?");
+	ps.setString(1, id);
+	ps.setString(2, name);
+	ps.setString(3, city);
+	ps.setString(4, category);
+	ps.setString(5, mobilenumber);
+	ps.setString(7, email);
+	ps.setString(9, address);
+	ps.executeUpdate();
+	response.sendRedirect(".jsp?msg=valid");
+}
+catch(Exception e)
+{
+	response.sendRedirect(".jsp?msg=invalid");
+	}

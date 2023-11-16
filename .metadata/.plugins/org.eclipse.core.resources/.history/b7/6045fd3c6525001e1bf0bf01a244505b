@@ -1,0 +1,113 @@
+<%@page import="project.ConnectionProvider" %>
+<%@page import="java.sql.*" %>
+<%@include file="header.html"%>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css" media="screen">
+<style>
+input[type="text"], input[type="password"], input[type="submit"],select
+{
+    border: none;
+    background:silver;
+    height: 50px;
+    font-size: 16px;
+	margin-left:35%;
+	padding:15px;
+	width:33%;	
+	border-radius: 25px;
+}
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 55%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+</head>
+<body>
+<div Class ="container">
+<br>
+<%
+String msg=request.getParameter("msg");
+if("invalid".equals(msg))
+{
+%>
+<center><font color="red" size="5">some thing went wrong!Try again</font>
+<%} %>
+<%
+if("valid".equals(msg))
+{
+%>
+<center><font color="red" size="5">Succesfully updated</font>
+<%} %>
+<form action="manageAction.jsp" methode="post">
+<div class="form-group">
+<center><h2>Select details</h2></center>
+<select name=category>
+<option value="docter">docter</option>
+<option value="engineer">engineer</option>
+<option value="teacher">teacher</option>
+<option value="farmer">farmer</option>
+<option value="cook">cook</option>
+</select>
+<center><h2>available or not</h2></center>
+<select name="avnot">
+<option value="avilable">avilable</option>
+<option value="not">not</option>
+</select>
+<center><h2>Mobile Number</h2></center>
+<center><input type="number" placeholder="Enter  mobile number" name="mobilenumber"></center>
+<center><button type="submit" Class="button">save</button></center>
+</div>
+</form>
+<br>
+<%
+try
+{
+	Connection con=ConnectionProvider.getCon();
+	Statement st=con.createStatement();
+	ResultSet rs=st.executeQuery("select * from availablility");
+	while(rs.next())
+	{
+
+%>
+<td><%=rs.getInt(1) %></td>
+<td><%=rs.getString(2) %></td>
+<td><%=rs.getString(3) %></td>
+</tr>
+<%
+	}
+}
+catch(Exception e)
+{
+	System.out.println(e);
+}
+%>
+</table>
+</div>
+</table>
+</center>
+<br>
+<br>
+<br>
+<br>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+String name=request.getParameter("name");
+String mobilenumber=request.getParameter("mobilenumber");
+String email=request.getParameter("email");
+String skills=request.getParameter("skills");
+String status ="pending";
+try{
+	Connection con=ConnectionProvider.getCon();
+	PreparedStatement ps=con.prepareStatement("insert into workersrequest values(?,?,?,?,?,?)");
+
+	ps.setString(2, name);
+	ps.setString(3, mobilenumber);
+	ps.setString(4, email);
+	ps.setString(5, skills);
+	ps.setString(6, status);
+	ps.executeUpdate();
+	response.sendRedirect("index.jsp?msg=valid");
+}
+catch(Exception e)
+{
+	response.sendRedirect("index.jsp?msg=invalid");
+}
+%>

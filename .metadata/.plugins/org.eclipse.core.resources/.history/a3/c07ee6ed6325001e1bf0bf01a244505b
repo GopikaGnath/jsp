@@ -1,0 +1,6 @@
+%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+String category=request.getParameter("category");
+String available=request.getParameter("available");
+String number=request.getParameter("number");

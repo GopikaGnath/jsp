@@ -1,0 +1,13 @@
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+String id=request.getParameter("id");
+String name=request.getParameter("name");
+String city=request.getParameter("city");
+String category=request.getParameter("category");
+String mobilenumber=request.getParameter("mobilnumber");
+String gender=request.getParameter("gender");
+String email=request.getParameter("email");
+String bloodgroup=request.getParameter("bloodgroup");
+String address=request.getParameter("address");
+%>
